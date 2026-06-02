@@ -695,7 +695,7 @@ a:hover {
 .donate-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 600px;
+  min-height: 460px;
   padding: 0 !important;
 }
 

@@ -695,12 +695,13 @@ a:hover {
 .donate-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 460px;
+  height: 480px;
   padding: 0 !important;
 }
 
 .donate-hero__image {
   overflow: hidden;
+  height: 480px;
 }
 
 .donate-hero__image img {

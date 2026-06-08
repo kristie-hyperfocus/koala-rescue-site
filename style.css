@@ -695,20 +695,23 @@ a:hover {
 .donate-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 480px;
   height: 480px;
   padding: 0 !important;
+  background: var(--cream);
 }
 
 .donate-hero__image {
   overflow: hidden;
   height: 480px;
+  background: var(--cream);
 }
 
 .donate-hero__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 62%;
+  object-position: center 56%;
   display: block;
 }
 

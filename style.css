@@ -139,10 +139,14 @@ a:hover {
   background-size: 200% 100%;
   background-position: right center;
   color: var(--white) !important;
-  padding: 0.85rem 1.75rem;
+  padding: 0.85rem 1.75rem !important;
   border-radius: 4px;
   font-weight: 600;
   font-size: 14px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: background-position 0.35s ease, box-shadow 0.2s ease;
   border-bottom: none !important;
 }
@@ -219,14 +223,110 @@ a:hover {
   color: var(--red);
 }
 
+.footer__acknowledgement {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  text-align: center;
+}
+
+.footer__acknowledgement p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
 .footer__bottom {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 1rem 2rem 0;
   display: flex;
   justify-content: space-between;
   font-size: 13px;
   color: rgba(255,255,255,0.7);
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Map section */
+.map-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.map-suburbs {
+  margin-bottom: 1.5rem;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.map-placeholder {
+  background: var(--warm-beige);
+  border-radius: 8px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--soft-brown);
+}
+
+.map-placeholder span {
+  font-size: 48px;
+  opacity: 0.5;
+}
+
+.map-placeholder p {
+  font-size: 14px;
+  color: var(--soft-brown);
+  margin-bottom: 0;
+}
+
+.map-acknowledgement {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 2rem;
+  border-left: 4px solid var(--light-green);
+}
+
+.map-acknowledgement h3 {
+  font-size: 18px;
+  margin-bottom: 0.75rem;
+}
+
+.map-acknowledgement p {
+  font-size: 15px;
+  margin-bottom: 0;
+  line-height: 1.8;
+}
+
+/* Volunteer form checkboxes */
+.vol-form-checkboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.vol-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 15px;
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.vol-checkbox input[type="checkbox"] {
+  width: auto;
+  accent-color: var(--dark-green);
+  flex-shrink: 0;
 }
 
 /* Sections */
@@ -694,24 +794,21 @@ a:hover {
 /* Donate page */
 .donate-hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 480px;
-  height: 480px;
+  grid-template-columns: 2fr 3fr;
+  height: 560px;
   padding: 0 !important;
   background: var(--cream);
 }
 
 .donate-hero__image {
   overflow: hidden;
-  height: 480px;
-  background: var(--cream);
 }
 
 .donate-hero__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 56%;
+  object-position: center 15%;
   display: block;
 }
 
@@ -1407,11 +1504,11 @@ a:hover {
 
   .donate-hero {
     grid-template-columns: 1fr;
-    min-height: auto;
+    height: auto;
   }
 
   .donate-hero__image {
-    height: 320px;
+    height: 380px;
   }
 
   .donate-hero__content {

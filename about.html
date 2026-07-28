@@ -25,7 +25,7 @@
         <li><a href="about.html" class="active">About</a></li>
         <li><a href="volunteer.html">Volunteer</a></li>
         <li><a href="donate.html">Donate</a></li>
-        <li><a href="tel:0424807470" class="nav__cta"><span class="nav__cta-label">Phone</span><span class="material-symbols-outlined nav__cta-icon">phone</span> 0424 807 470</a></li>
+        <li><a href="tel:0424807470" class="nav__cta">Phone 0424 807 470</a></li>
       </ul>
     </div>
   </nav>
@@ -203,11 +203,6 @@
     const toggle = document.getElementById('navToggle');
     const links = document.getElementById('navLinks');
     toggle.addEventListener('click', () => links.classList.toggle('open'));
-
-    const nav = document.querySelector('.nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('nav--scrolled', window.scrollY > 80);
-    }, { passive: true });
   </script>
 
 </body>

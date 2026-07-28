@@ -158,6 +158,24 @@ a:hover {
   box-shadow: 0 4px 12px rgba(215, 32, 46, 0.35);
 }
 
+.nav__cta-text {
+  display: inline;
+}
+
+.nav__cta-icon {
+  display: none;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.nav--scrolled .nav__cta-text {
+  display: none;
+}
+
+.nav--scrolled .nav__cta-icon {
+  display: inline;
+}
+
 .nav__toggle {
   display: none;
   background: none;
@@ -632,6 +650,80 @@ a:hover {
 
 .action-text p {
   margin: 0;
+}
+
+/* Action Cards — 3-column layout */
+.action-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.action-card {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 2rem;
+  border-top: 4px solid var(--dark-green);
+}
+
+.action-card__number {
+  width: 40px;
+  height: 40px;
+  background: var(--dark-green);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.action-card__icon {
+  font-size: 28px;
+  color: var(--light-green);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.action-card h3 {
+  font-size: 18px;
+  margin-bottom: 0.75rem;
+  color: var(--dark-green);
+}
+
+.action-card p {
+  font-size: 15px;
+  margin-bottom: 0.75rem;
+}
+
+.action-card p:last-child {
+  margin-bottom: 0;
+}
+
+.action-card .call-numbers {
+  margin-top: 1rem;
+}
+
+.action-card .observe-list {
+  margin-top: 0.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.action-card .observe-list li {
+  font-size: 14px;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  line-height: 1.5;
+}
+
+.action-card .observe-list li:last-child {
+  border-bottom: none;
 }
 
 /* Signs Layout */

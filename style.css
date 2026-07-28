@@ -158,22 +158,22 @@ a:hover {
   box-shadow: 0 4px 12px rgba(215, 32, 46, 0.35);
 }
 
-.nav__cta-text {
+.nav__cta-label {
   display: inline;
 }
 
 .nav__cta-icon {
-  display: none;
+  display: none !important;
   font-size: 20px;
   vertical-align: middle;
 }
 
-.nav--scrolled .nav__cta-text {
-  display: none;
+.nav--scrolled .nav__cta-icon {
+  display: inline !important;
 }
 
-.nav--scrolled .nav__cta-icon {
-  display: inline;
+.nav--scrolled .nav__cta-label {
+  display: none;
 }
 
 .nav__toggle {

@@ -1524,6 +1524,34 @@ a:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .action-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .action-card {
+    padding: 1.5rem;
+  }
+
+  .action-card__number {
+    margin-bottom: 0.75rem;
+  }
+
+  .action-card .call-number-item {
+    align-items: flex-start;
+  }
+
+  .action-card .call-number-label {
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  .map-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
   h1 {
     font-size: 42px;
   }
@@ -1772,6 +1800,28 @@ a:hover {
 }
 
 @media (max-width: 480px) {
+  .action-card {
+    padding: 1.25rem;
+  }
+
+  .action-card h3 {
+    font-size: 17px;
+  }
+
+  .action-card p,
+  .action-card .observe-list li {
+    font-size: 14px;
+  }
+
+  .image-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .image-grid-3 .image-item {
+    min-width: 0;
+    width: 100%;
+  }
+
   h1 {
     font-size: 32px;
   }

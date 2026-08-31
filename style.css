@@ -1878,3 +1878,7 @@ a:hover {
 .committee-role { color: var(--text-light); font-size: 14px; margin-bottom: 0.5rem; }
 .committee-email { font-size: 13px; color: var(--red); word-break: break-word; margin-top: auto; }
 @media (max-width: 768px) { .committee-grid { grid-template-columns: 1fr; } }
+
+/* committee name links */
+.committee-name-link { color: inherit; text-decoration: none; }
+.committee-name-link:hover { text-decoration: underline; }

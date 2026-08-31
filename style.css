@@ -1869,3 +1869,12 @@ a:hover {
 
 /* role-card icons (How you can help) */
 .role-card__icon { font-size: 40px; color: var(--light-green); margin-bottom: 0.85rem; display: block; line-height: 1; }
+
+/* Committee section (About) */
+.committee-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1rem; }
+.committee-card { background: var(--white); border-radius: 12px; padding: 2rem 1.5rem; text-align: center; border-top: 4px solid var(--light-green); display: flex; flex-direction: column; align-items: center; }
+.committee-avatar { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--white); font-weight: 700; font-size: 24px; letter-spacing: 0.02em; }
+.committee-card h3 { font-size: 18px; margin-bottom: 0.25rem; color: var(--dark-green); }
+.committee-role { color: var(--text-light); font-size: 14px; margin-bottom: 0.5rem; }
+.committee-email { font-size: 13px; color: var(--red); word-break: break-word; margin-top: auto; }
+@media (max-width: 768px) { .committee-grid { grid-template-columns: 1fr; } }

@@ -1860,9 +1860,12 @@ a:hover {
 .action-cards { align-items: stretch; }
 .action-card { display: flex; flex-direction: column; }
 .action-card .observe-list li, .observe-list li { display: block; position: relative; padding-left: 1rem; }
-.action-card .observe-list li::before, .observe-list li::before { position: absolute; left: 0; top: 8px; margin-top: 0; }
+.action-card .observe-list li::before, .observe-list li::before { position: absolute; left: 0; top: 0.85rem; margin-top: 0; }
 .observe-list li strong { font-weight: 600; }
 .action-card__cta { margin-top: auto; padding-top: 1.25rem; border-top: 1px solid rgba(0,0,0,0.08); }
 .action-card__cta p { font-size: 14px; margin-bottom: 0.85rem; color: var(--text); }
 .action-card__cta .btn { width: 100%; justify-content: center; }
 .map-image { width: 100%; height: auto; border-radius: 8px; display: block; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+/* role-card icons (How you can help) */
+.role-card__icon { font-size: 40px; color: var(--light-green); margin-bottom: 0.85rem; display: block; line-height: 1; }

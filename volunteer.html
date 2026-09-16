@@ -48,8 +48,8 @@
       <div class="community-layout">
         <div class="community-text">
           <h2>What to expect</h2>
-          <p>Volunteering with KRBS is rewarding, challenging, and sometimes intense. There are various roles including phone coordination and on-site rescue work. Whatever role you perform, you will be helping to protect the lives of koalas across Brisbane south.</p>
-          <p style="margin-top: 1rem;">We are looking for people who are: mentally prepared for emergencies; focused on teamwork; willing to learn; committed to the mission; passionate about koalas; and for some of the on-site rescue roles, physically capable for the more strenuous activities. You don't need prior experience.</p>
+          <p>Volunteering with KRBS is rewarding, challenging and sometimes intense. There are various roles including phone coordination and on-site rescue work. Whatever role you perform, you will be helping to protect the lives of koalas across Brisbane south.</p>
+          <p style="margin-top: 1rem;">We are looking for people who are mentally prepared for emergencies, focused on teamwork, willing to learn, committed to the mission and passionate about koalas. For some of the on-site rescue roles, volunteers must also be physically capable of handling more strenuous activities. Prior experience is not required.</p>
         </div>
         <div class="community-image">
           <img src="website-images/John Knights and koala 3.JPG" alt="John Knights watching a rescued koala climb back up into a gum tree" loading="lazy">
@@ -72,7 +72,7 @@
         <div class="role-card">
           <span class="material-symbols-outlined" style="font-size: 36px; color: var(--light-green); margin-bottom: 1rem; display: block;">emergency</span>
           <h3>First responder</h3>
-          <p>Be the first KRBS volunteer on scene. Talk with the member of the public, assess the situation, tag the location, and brief the rescue lead.</p>
+          <p>Be the first KRBS volunteer on scene. Talk with the member of the public, assess the situation, tag the location and brief the rescue lead.</p>
         </div>
         <div class="role-card">
           <span class="material-symbols-outlined" style="font-size: 36px; color: var(--light-green); margin-bottom: 1rem; display: block;">groups</span>
@@ -92,12 +92,13 @@
         <div class="role-card">
           <span class="material-symbols-outlined" style="font-size: 36px; color: var(--light-green); margin-bottom: 1rem; display: block;">admin_panel_settings</span>
           <h3>Administration</h3>
-          <p>Sub-roles include: Office Bearer, Membership Registrar, organising training, updating records and documents, general technology, and making signs.</p>
+          <!-- TODO: placeholder role titles, Hilary to confirm final list with Michelle before this ships to a real review cycle -->
+          <p>Sub-roles include membership coordinator, training organiser, RSPCA liaison officer, koala record keeper and sign maker.</p>
         </div>
         <div class="role-card">
           <span class="material-symbols-outlined" style="font-size: 36px; color: var(--light-green); margin-bottom: 1rem; display: block;">campaign</span>
           <h3>Community advocate</h3>
-          <p>Spread awareness at events, contribute to social media, and organise or assist at fundraisers. Help people care about koalas before a crisis hits.</p>
+          <p>Spread awareness at events, contribute to social media and organise or assist at fundraisers. Help people care about koalas before a crisis hits.</p>
         </div>
       </div>
     </div>
@@ -132,7 +133,7 @@
         </div>
         <div class="community-text">
           <h2>Training &amp; support</h2>
-          <p>Every volunteer receives the necessary training, which might cover rescue protocols, animal handling, safety procedures, communication and wildlife science. We meet regularly for hands-on training and team development.</p>
+          <p>Every volunteer receives the necessary training, which includes rescue protocols, animal handling, safety procedures, communication and wildlife science. We meet regularly for hands-on training and team development.</p>
           <p style="margin-top: 1rem;">John Knights mentors new volunteers. You'll learn from someone who has been rescuing koalas for over 15 years, and you'll be equipped with the skills and confidence to respond safely and appropriately in any situation.</p>
           <div class="alert-box" style="margin-top: 1.5rem;">
             <span class="material-symbols-outlined" style="color: var(--dark-green); vertical-align: middle; font-size: 20px; margin-right: 0.4rem;">schedule</span>
@@ -148,7 +149,8 @@
     <div class="container">
       <div class="vol-form-wrap">
         <h2 style="text-align: center; margin-bottom: 0.5rem;">Express your interest</h2>
-        <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">Fill in the form below and we'll be in touch to chat about how you can get involved.</p>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 0.25rem;">Please complete the form below.</p>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">We'll be in touch to chat about how you can get involved.</p>
         <form class="vol-form" name="volunteer-interest" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="volunteer-interest">
           <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
@@ -181,6 +183,10 @@
             </div>
           </div>
           <div class="vol-form-field">
+            <label for="vol-suburb">What's your suburb and how would you like to help?</label>
+            <input type="text" id="vol-suburb" name="suburb-and-help" placeholder="e.g. Coorparoo — happy to help with phone coordination">
+          </div>
+          <div class="vol-form-field">
             <label for="vol-message">Tell us a bit about yourself</label>
             <textarea id="vol-message" name="message" required placeholder="Where do you live, why you want to help, any relevant experience..." rows="4"></textarea>
           </div>
@@ -194,7 +200,7 @@
     <div class="container">
       <div class="footer__inner">
         <div class="footer__col">
-          <h3>KRBS</h3>
+          <h3>KRBS Inc.</h3>
           <p>Koala Rescue Brisbane South is a community-driven rescue organisation, founded and mentored by John Knights, who has over 15 years of koala expertise. We respond 24/7 to koalas in need across Brisbane's southern suburbs.</p>
         </div>
         <div class="footer__col">
@@ -209,6 +215,7 @@
         <div class="footer__col">
           <h3>Contact us</h3>
           <p><strong><a href="tel:0424807470">0424 807 470</a></strong> <strong>(please phone, don't text)</strong></p>
+          <p>For non-urgent matters email <a href="mailto:info@koalarescuebrisbanesouth.org.au">info@koalarescuebrisbanesouth.org.au</a></p>
           <p>Available 24/7 for koalas in need</p>
           <p style="margin-top: 1rem;"><strong>ABN:</strong> 45 733 234 135</p>
           <a href="https://www.acnc.gov.au/charity/charities/45c95e32-ecb2-e811-a960-000d3ad24c60/profile" target="_blank" rel="noopener" title="ACNC Registered Charity" style="display:inline-block; margin-top: 0.75rem;">

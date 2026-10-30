@@ -803,7 +803,7 @@ a:hover {
 .call-numbers {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   margin-top: 1rem;
 }
 
@@ -1090,27 +1090,29 @@ a:hover {
 .about-wildlife__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(26,38,0,0.3), rgba(26,38,0,0.65));
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 2rem;
 }
 
 .about-wildlife__quote {
-  text-align: center;
+  text-align: left;
   color: var(--white);
-  font-size: 28px;
+  font-size: 22px;
   font-style: italic;
   font-weight: 600;
-  max-width: 600px;
-  padding: 0 2rem;
+  max-width: 360px;
+  padding: 1.5rem 1.75rem;
   line-height: 1.4;
+  background: rgba(26,38,0,0.6);
+  border-radius: 12px;
   text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 
 .about-wildlife__quote cite {
   display: block;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 400;
   font-style: normal;
   margin-top: 0.75rem;
@@ -1654,8 +1656,14 @@ a:hover {
     height: 340px;
   }
 
+  .about-wildlife__overlay {
+    padding: 1.25rem;
+  }
+
   .about-wildlife__quote {
-    font-size: 20px;
+    font-size: 17px;
+    max-width: calc(100% - 1rem);
+    padding: 1.25rem 1.5rem;
   }
 
   .about-cta-grid {

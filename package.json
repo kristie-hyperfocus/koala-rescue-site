@@ -1,0 +1,15 @@
+{
+  "name": "krbs-site",
+  "version": "1.0.0",
+  "description": "Koala Rescue Brisbane South static site",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "dev": "eleventy --serve --watch"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.0",
+    "csv-parse": "^5.5.0",
+    "node-fetch": "^2.7.0"
+  }
+}

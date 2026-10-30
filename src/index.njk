@@ -1,45 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Koala Rescue Brisbane South</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
-<body>
-
-  <nav class="nav">
-    <div class="nav__inner">
-      <a href="index.html" class="nav__logo">
-        KRBS
-        <span>Koala Rescue Brisbane South Inc</span>
-      </a>
-      <button class="nav__toggle" id="navToggle" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav__links" id="navLinks">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="volunteer.html">Volunteer</a></li>
-        <li><a href="donate.html">Donate</a></li>
-        <li><a href="tel:0424807470" class="nav__cta">Phone 0424 807 470</a></li>
-      </ul>
-    </div>
-  </nav>
+---
+layout: layouts/base.njk
+title: Koala Rescue Brisbane South
+permalink: index.html
+---
 
   <!-- Hero -->
   <section class="section section--hero">
     <div class="hero">
-      <div class="hero__image" style="background-image: url('website-images/abe40328-0484-4f3d-a44d-23aca18370db.jpeg'); background-size: cover; background-position: center 30%;"></div>
+      <div class="hero__image" style="background-image: url('website-images/Koala on branch full body wide.jpg'); background-size: cover; background-position: center 35%;"></div>
       <div class="hero__content">
         <h1>Concerned about a koala?</h1>
         <p>We're here to help. 24/7. Please call now.</p>
         <div class="phone-banner">
           <p>Call immediately (please don't text)</p>
-          <a href="tel:0424807470">0424 807 470</a>
+          <a href="tel:{{ siteConfig.phoneTel }}">{{ siteConfig.phone }}</a>
         </div>
       </div>
     </div>
@@ -59,7 +33,7 @@
           <div class="call-numbers">
             <div class="call-number-item">
               <span class="material-symbols-outlined sign-icon" style="font-size:18px;">phone</span>
-              <div><a href="tel:0424807470">0424 807 470</a> <span class="call-number-label">Koala Rescue Brisbane South</span></div>
+              <div><a href="tel:{{ siteConfig.phoneTel }}">{{ siteConfig.phone }}</a> <span class="call-number-label">Koala Rescue Brisbane South</span></div>
             </div>
             <div class="call-number-item">
               <span class="material-symbols-outlined sign-icon" style="font-size:18px;">phone</span>
@@ -101,7 +75,7 @@
           <p>Based on what you tell us, the rescuer will be able to determine the right course of action. Your observations guide our response; every detail matters.</p>
           <div class="action-card__cta">
             <p><strong>When in doubt, phone us.</strong> We would always rather check than miss a koala that needs help.</p>
-            <a href="tel:0424807470" class="btn btn--red">Call 0424 807 470</a>
+            <a href="tel:{{ siteConfig.phoneTel }}" class="btn btn--red">Call {{ siteConfig.phone }}</a>
           </div>
         </div>
 
@@ -119,7 +93,7 @@
           <img src="website-images/Koala found on drain pipe .JPG" alt="Koala found clinging to a drainpipe in suburban Brisbane, needing rescue">
         </div>
         <div class="signs-content">
-          <p class="signs-call">Phone us promptly on 0424 807 470, if you notice:</p>
+          <p class="signs-call">Phone us promptly on {{ siteConfig.phone }}, if you notice:</p>
           <ul class="sign-items">
             <li>
               <span class="material-symbols-outlined sign-icon">water_drop</span>
@@ -173,7 +147,6 @@
       <h2 style="text-align: center; margin-bottom: 2rem;">Who we are</h2>
 
       <div class="image-grid-2">
-        <div class="image-item"><img src="website-images/Barbara and Aiko Chester Park Reserve.JPG" alt="KRBS volunteer Barbara with mother koala Aiko and her joey at Chester Park Reserve" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
         <div>
           <h3>Real people, real work</h3>
           <p>We're a diverse group of volunteers from Brisbane's southern suburbs, united by one mission: to protect koalas. Many of us have full-time jobs; others are retirees. Every volunteer is important to the ongoing viability of Koala Rescue Brisbane South.</p>
@@ -181,6 +154,7 @@
           <p>We don't just rescue. We relocate koalas within their home ranges when necessary and we release them after wildlife veterinary care. Importantly, we keep learning about koalas, their behaviours, their needs and their habitat from every single rescue.</p>
           <a href="about.html" class="btn">Learn our story</a>
         </div>
+        <div class="image-item"><img src="website-images/Barbara and Aiko Chester Park Reserve.JPG" alt="KRBS volunteer Barbara with mother koala Aiko and her joey at Chester Park Reserve" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
       </div>
     </div>
   </section>
@@ -192,11 +166,12 @@
       <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; font-size: 17px; color: var(--text-light);">Every rescue matters. Every koala has a story. This is the work we do.</p>
 
       <div class="image-grid-3">
-        <div class="image-item"><img src="website-images/Koala close-up tagged 2057.jpg" alt="Close-up of a tagged koala looking directly at the camera from a eucalyptus tree" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
-        <div class="image-item featured"><img src="website-images/John with joey Precious.JPG" alt="Tiny rescued joey koala named Precious being cared for" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:8px;"></div>
-        <div class="image-item"><img src="website-images/Mother and joey golden hour.jpg" alt="Mother and joey koala resting together in a tree at golden hour" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
-        <div class="image-item"><img src="website-images/Mother and joey snuggled in tree.jpg" alt="Mother and joey koala snuggled together on a tree branch" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
-        <div class="image-item"><img src="website-images/Koala on fence Brisbane backyard.jpg" alt="Koala sitting on a timber fence in a Brisbane backyard" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
+        <div class="image-item"><img src="website-images/Standardised koala in tree 1.jpg" alt="Koala resting in a eucalyptus tree" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
+        <div class="image-item"><img src="website-images/John with joey Precious.JPG" alt="Tiny rescued joey koala named Precious being cared for" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:8px;"></div>
+        <div class="image-item"><img src="website-images/Standardised koala in tree 2.jpg" alt="Koala climbing among eucalyptus branches" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
+        <div class="image-item"><img src="website-images/Standardised mother and joey close tree.jpg" alt="Mother and joey koala close together in a tree" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
+        <div class="image-item"><img src="website-images/Standardised koala looking up tree.jpg" alt="Koala looking up into the canopy of a tree" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
+        <div class="image-item"><img src="website-images/Standardised koala tagged side profile.jpg" alt="Tagged koala in side profile on a tree trunk" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;"></div>
       </div>
     </div>
   </section>
@@ -249,7 +224,7 @@
           <a href="volunteer.html" class="btn" style="margin-top: 1rem;">Become a volunteer</a>
         </div>
         <div class="community-image">
-          <img src="website-images/Night rescue Boundary Road.JPG" alt="KRBS volunteers responding to a night rescue on Boundary Road" loading="lazy">
+          <img src="website-images/KRBS volunteers BBQ aprons standardised.jpg" alt="KRBS volunteers gathered together at a community fundraising BBQ" loading="lazy">
         </div>
       </div>
     </div>
@@ -312,50 +287,7 @@
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <div class="footer__col">
-          <h3>KRBS Inc.</h3>
-          <p>Koala Rescue Brisbane South is a community-driven rescue organisation, founded and mentored by John Knights, who has over 15 years of koala expertise. We respond 24/7 to koalas in need across Brisbane's southern suburbs.</p>
-        </div>
-        <div class="footer__col">
-          <h3>Quick links</h3>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="volunteer.html">Volunteer</a></li>
-            <li><a href="donate.html">Donate</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="terms.html">Terms</a></li>
-          </ul>
-        </div>
-        <div class="footer__col">
-          <h3>Contact us</h3>
-          <p><strong><a href="tel:0424807470">0424 807 470</a></strong><br><strong>(please phone, don't text)</strong></p>
-          <p>For non-urgent matters email <a href="mailto:info@koalarescuebrisbanesouth.org.au">info@koalarescuebrisbanesouth.org.au</a></p>
-          <p>Available 24/7 for koalas in need</p>
-          <p style="margin-top: 1rem;"><strong>ABN:</strong> 45 733 234 135</p>
-          <a href="https://www.acnc.gov.au/charity/charities/45c95e32-ecb2-e811-a960-000d3ad24c60/profile" target="_blank" rel="noopener" title="ACNC Registered Charity" style="display:inline-block; margin-top: 0.75rem;">
-            <img src="website-images/ACNC-Logo-transparent.png" alt="ACNC Registered Charity" style="height: 72px; width: auto; display: block; opacity: 0.92;">
-          </a>
-        </div>
-      </div>
-      <div class="footer__acknowledgement">
-        <p>We acknowledge the Yuggera and Turrbal peoples, the Traditional Custodians of the land on which we work,<br>and pay our respects to their Elders — past, present and emerging.</p>
-      </div>
-      <div class="footer__bottom">
-        <span>&copy; 2026 Koala Rescue Brisbane South Inc.</span>
-        <span>Camp Hill, Queensland</span>
-      </div>
-    </div>
-  </footer>
-
   <script>
-    const toggle = document.getElementById('navToggle');
-    const links = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => links.classList.toggle('open'));
-
     (function () {
       const BREAKPOINT = 768;
       const actionItems = Array.from(document.querySelectorAll('.action-list > li'));
@@ -413,6 +345,3 @@
       window.addEventListener('resize', setup);
     })();
   </script>
-
-</body>
-</html>

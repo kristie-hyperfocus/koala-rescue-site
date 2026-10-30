@@ -1,39 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Volunteer - Koala Rescue Brisbane South</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
-<body>
-
-  <nav class="nav">
-    <div class="nav__inner">
-      <a href="index.html" class="nav__logo">
-        KRBS
-        <span>Koala Rescue Brisbane South Inc</span>
-      </a>
-      <button class="nav__toggle" id="navToggle" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav__links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="volunteer.html" class="active">Volunteer</a></li>
-        <li><a href="donate.html">Donate</a></li>
-        <li><a href="tel:0424807470" class="nav__cta">Phone 0424 807 470</a></li>
-      </ul>
-    </div>
-  </nav>
+---
+layout: layouts/base.njk
+title: Volunteer - Koala Rescue Brisbane South
+permalink: volunteer.html
+---
 
   <!-- Hero -->
   <section class="section section--hero">
     <div class="hero">
-      <div class="hero__image" style="background-image: url('website-images/Koala Party Griffith Uni Nathan Oct 2025.jpg'); background-size: cover; background-position: center 30%;"></div>
+      <div class="hero__image" style="background-image: url('website-images/Koala climbing trunk wide full body.jpg'); background-size: cover; background-position: center 35%;"></div>
       <div class="hero__content">
         <h1>Join the team</h1>
         <p>Be part of something that matters. No experience is required.<br>Training for all roles is provided.</p>
@@ -52,7 +26,7 @@
           <p style="margin-top: 1rem;">We are looking for people who are mentally prepared for emergencies, focused on teamwork, willing to learn, committed to the mission and passionate about koalas. For some of the on-site rescue roles, volunteers must also be physically capable of handling more strenuous activities. Prior experience is not required.</p>
         </div>
         <div class="community-image">
-          <img src="website-images/Koala looking up tree.jpg" alt="Koala looking up into the canopy of a gum tree" loading="lazy">
+          <img src="website-images/Standardised koala looking up through leaves.jpg" alt="Koala looking up through eucalyptus leaves into the canopy" loading="lazy">
         </div>
       </div>
     </div>
@@ -109,11 +83,11 @@
     <div class="container">
       <div class="vol-photo-strip">
         <div class="vol-photo-item">
-          <img src="website-images/Night rescue Boundary Road 2.jpg" alt="KRBS rescue van at a night time koala rescue operation" loading="lazy">
+          <img src="website-images/KRBS night rescue van standardised.jpg" alt="KRBS rescue van at a night time koala rescue operation" loading="lazy">
           <div class="vol-photo-label">24/7 emergency response</div>
         </div>
         <div class="vol-photo-item">
-          <img src="website-images/Bunnings BBQ September 2025.jpg" alt="KRBS volunteers at a Bunnings BBQ fundraiser" loading="lazy">
+          <img src="website-images/KRBS volunteers Bunnings BBQ standardised.jpg" alt="KRBS volunteers at a Bunnings BBQ fundraiser" loading="lazy">
           <div class="vol-photo-label">Community fundraising</div>
         </div>
         <div class="vol-photo-item">
@@ -129,7 +103,7 @@
     <div class="container">
       <div class="community-layout" style="margin-top: 0;">
         <div class="community-image">
-          <img src="website-images/Training session March 2025.jpg" alt="KRBS volunteers at a training session with the Koala Rescue Brisbane South banner" loading="lazy">
+          <img src="website-images/KRBS volunteers radio tracking training.jpg" alt="KRBS volunteers at a radio-tracking training session in the field" loading="lazy">
         </div>
         <div class="community-text">
           <h2>Training &amp; support</h2>
@@ -151,7 +125,7 @@
         <h2 style="text-align: center; margin-bottom: 0.5rem;">Express your interest</h2>
         <p style="text-align: center; color: var(--text-light); margin-bottom: 0.25rem;">Please complete the form below.</p>
         <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">We'll be in touch to chat about how you can get involved.</p>
-        <form class="vol-form" name="volunteer-interest" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field">
+        <form class="vol-form" name="volunteer-interest" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="volunteer-interest">
           <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
           <div class="vol-form-row">
@@ -195,49 +169,3 @@
       </div>
     </div>
   </section>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <div class="footer__col">
-          <h3>KRBS Inc.</h3>
-          <p>Koala Rescue Brisbane South is a community-driven rescue organisation, founded and mentored by John Knights, who has over 15 years of koala expertise. We respond 24/7 to koalas in need across Brisbane's southern suburbs.</p>
-        </div>
-        <div class="footer__col">
-          <h3>Quick links</h3>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="volunteer.html">Volunteer</a></li>
-            <li><a href="donate.html">Donate</a></li>
-          </ul>
-        </div>
-        <div class="footer__col">
-          <h3>Contact us</h3>
-          <p><strong><a href="tel:0424807470">0424 807 470</a></strong><br><strong>(please phone, don't text)</strong></p>
-          <p>For non-urgent matters email <a href="mailto:info@koalarescuebrisbanesouth.org.au">info@koalarescuebrisbanesouth.org.au</a></p>
-          <p>Available 24/7 for koalas in need</p>
-          <p style="margin-top: 1rem;"><strong>ABN:</strong> 45 733 234 135</p>
-          <a href="https://www.acnc.gov.au/charity/charities/45c95e32-ecb2-e811-a960-000d3ad24c60/profile" target="_blank" rel="noopener" title="ACNC Registered Charity" style="display:inline-block; margin-top: 0.75rem;">
-            <img src="website-images/ACNC-Logo-transparent.png" alt="ACNC Registered Charity" style="height: 72px; width: auto; display: block; opacity: 0.92;">
-          </a>
-        </div>
-      </div>
-      <div class="footer__acknowledgement">
-        <p>We acknowledge the Yuggera and Turrbal peoples, the Traditional Custodians of the land on which we work,<br>and pay our respects to their Elders — past, present and emerging.</p>
-      </div>
-      <div class="footer__bottom">
-        <span>&copy; 2026 Koala Rescue Brisbane South Inc.</span>
-        <span>Camp Hill, Queensland</span>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    const toggle = document.getElementById('navToggle');
-    const links = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => links.classList.toggle('open'));
-  </script>
-
-</body>
-</html>

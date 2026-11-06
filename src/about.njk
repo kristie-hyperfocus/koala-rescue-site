@@ -118,7 +118,7 @@ permalink: about.html
           <div class="committee-avatar">{{ person.initials }}</div>
           <h3>{{ person.name }}</h3>
           <p class="committee-role">{{ person.role }}</p>
-          {% if person.email %}<p class="committee-email">{{ person.email }}</p>{% endif %}
+          {% if person.email %}<p class="committee-email"><a href="mailto:{{ person.email }}">{{ person.email }}</a></p>{% endif %}
         </div>
         {% endfor %}
       </div>

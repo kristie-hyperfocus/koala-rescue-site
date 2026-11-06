@@ -353,6 +353,7 @@ a:hover {
   position: relative;
   height: 80vh;
   min-height: 600px;
+  max-height: 720px;
   display: flex;
   align-items: center;
   justify-content: center;

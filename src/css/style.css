@@ -71,7 +71,7 @@ a:hover {
 
 /* Container */
 .container {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -89,7 +89,7 @@ a:hover {
 }
 
 .nav__inner {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -186,7 +186,7 @@ a:hover {
 }
 
 .footer__inner {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -225,7 +225,7 @@ a:hover {
 }
 
 .footer__acknowledgement {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 1.25rem 2rem;
   border-top: 1px solid rgba(255,255,255,0.12);
@@ -241,7 +241,7 @@ a:hover {
 }
 
 .footer__bottom {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 1rem 2rem 0;
   display: flex;

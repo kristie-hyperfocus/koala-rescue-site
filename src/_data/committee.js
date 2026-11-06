@@ -17,7 +17,7 @@ const fetch = require("node-fetch");
 const { parse } = require("csv-parse/sync");
 
 const PLACEHOLDER_COMMITTEE = [
-  { name: "Richard Unwin", role: "President", email: "", acncUrl: "" },
+  { name: "Richard Unwin", role: "President", email: "", acncUrl: "", initials: "RU" },
 ];
 
 const get = (row, ...names) => {
@@ -63,6 +63,16 @@ module.exports = async function () {
       role: get(row, "Role"),
       email: get(row, "Email"),
       acncUrl: get(row, "ACNC Link", "ACNC link"),
+      initials: initials(get(row, "Name")),
     }))
     .filter((person) => person.name);
 };
+
+function initials(name) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join("");
+}

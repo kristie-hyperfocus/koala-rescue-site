@@ -111,10 +111,17 @@ permalink: about.html
     <div class="container">
       <h2 style="text-align: center; margin-bottom: 0.5rem;">Our committee</h2>
       <p style="text-align: center; color: var(--text-light); max-width: 620px; margin: 0 auto 1rem;">The volunteers who make up the management committee of Koala Rescue Brisbane South Inc. are always appreciative of any assistance.</p>
-      <p style="text-align: center; color: var(--text-light); max-width: 620px; margin: 0 auto 1.5rem;">We appreciate your support.</p>
-      {% for person in committee %}
-      <p style="text-align: center; font-weight: 600; color: var(--dark-green);">{{ person.name }}<br><span style="font-weight: 400; color: var(--text-light);">{{ person.role }}</span></p>
-      {% endfor %}
+      <p style="text-align: center; color: var(--text-light); max-width: 620px; margin: 0 auto 2rem;">We appreciate your support.</p>
+      <div class="committee-grid">
+        {% for person in committee %}
+        <div class="committee-card">
+          <div class="committee-avatar">{{ person.initials }}</div>
+          <h3>{{ person.name }}</h3>
+          <p class="committee-role">{{ person.role }}</p>
+          {% if person.email %}<p class="committee-email">{{ person.email }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
     </div>
   </section>
 

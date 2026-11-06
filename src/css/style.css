@@ -494,6 +494,7 @@ a:hover {
 
 .image-grid-2 .image-item {
   min-height: 350px;
+  max-height: 500px;
   background: linear-gradient(135deg, var(--warm-beige) 0%, var(--soft-brown) 100%);
   border-radius: 8px;
   overflow: hidden;

@@ -1,0 +1,18 @@
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        KRBS
+        <span>Koala Rescue Brisbane South Inc</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html"{% if page.url == "/index.html" or page.url == "/" %} class="active"{% endif %}>Home</a></li>
+        <li><a href="about.html"{% if page.url == "/about.html" %} class="active"{% endif %}>About</a></li>
+        <li><a href="volunteer.html"{% if page.url == "/volunteer.html" %} class="active"{% endif %}>Volunteer</a></li>
+        <li><a href="donate.html"{% if page.url == "/donate.html" %} class="active"{% endif %}>Donate</a></li>
+        <li><a href="tel:{{ siteConfig.phoneTel }}" class="nav__cta">Phone {{ siteConfig.phone }}</a></li>
+      </ul>
+    </div>
+  </nav>

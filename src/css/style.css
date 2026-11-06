@@ -288,11 +288,25 @@ a:hover {
   margin-bottom: 0;
 }
 
+.map-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .map-acknowledgement {
   background: var(--cream);
   border-radius: 8px;
   padding: 2rem;
   border-left: 4px solid var(--light-green);
+}
+
+.map-facebook {
+  overflow: hidden;
+}
+
+.map-facebook .fb-page {
+  width: 100%;
 }
 
 .map-acknowledgement h3 {

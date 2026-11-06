@@ -17,7 +17,7 @@ const fetch = require("node-fetch");
 const { parse } = require("csv-parse/sync");
 
 const PLACEHOLDER_COMMITTEE = [
-  { name: "Richard Unwin", role: "President", email: "", acncUrl: "", initials: "RU" },
+  { name: "Richard Unwin", role: "President", email: "president@koalarescuebrisbanesouth.org.au", acncUrl: "", initials: "RU" },
 ];
 
 const get = (row, ...names) => {

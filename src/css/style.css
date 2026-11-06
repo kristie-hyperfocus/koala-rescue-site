@@ -351,9 +351,8 @@ a:hover {
 /* Hero */
 .hero {
   position: relative;
-  height: 80vh;
+  height: 100vh;
   min-height: 600px;
-  max-height: 720px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,13 +394,13 @@ a:hover {
 .hero h1 {
   color: var(--white);
   margin-bottom: 1rem;
-  font-size: 64px;
+  font-size: clamp(48px, 5vw, 80px);
   text-shadow: 0 2px 16px rgba(0,0,0,0.5);
 }
 
 .hero p {
   color: rgba(255,255,255,0.95);
-  font-size: 20px;
+  font-size: clamp(18px, 1.3vw, 24px);
   margin-bottom: 2.5rem;
   text-shadow: 0 1px 8px rgba(0,0,0,0.4);
 }

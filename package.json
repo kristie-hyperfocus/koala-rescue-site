@@ -5,11 +5,18 @@
   "scripts": {
     "build": "eleventy",
     "start": "eleventy --serve",
-    "dev": "eleventy --serve --watch"
+    "dev": "eleventy --serve --watch",
+    "dev:functions": "netlify dev"
   },
   "dependencies": {
     "@11ty/eleventy": "^2.0.0",
+    "@netlify/blobs": "^8.1.0",
     "csv-parse": "^5.5.0",
+    "imapflow": "^1.0.167",
+    "mailparser": "^3.7.1",
     "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^18.0.0"
   }
 }

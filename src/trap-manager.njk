@@ -1,0 +1,159 @@
+---
+layout: layouts/base.njk
+title: Trap Photo Manager - Koala Rescue Brisbane South
+permalink: trap-manager.html
+noindex: true
+---
+
+  <section class="section">
+    <div class="container trap-container">
+      <h1 style="font-size: 32px; margin-bottom: 0.5rem;">Trap photo manager</h1>
+      <p style="color: var(--text-light); margin-bottom: 2rem;">Committee-only page. Enter the admin password to review and delete trap camera photos.</p>
+
+      <div class="vol-form-wrap" id="trap-login-wrap">
+        <form class="vol-form" id="trap-login-form">
+          <div class="vol-form-field">
+            <label for="trap-password">Admin password</label>
+            <input type="password" id="trap-password" name="password" required autocomplete="current-password">
+          </div>
+          <p id="trap-login-error" class="trap-error" hidden>Incorrect password, or this password doesn't have delete access.</p>
+          <button type="submit" class="btn">Sign in</button>
+        </form>
+      </div>
+
+      <div id="trap-manager-wrap" hidden>
+        <div class="trap-manager-bar">
+          <p id="trap-gallery-status" style="color: var(--text-light); margin: 0;"></p>
+          <button type="button" class="btn btn--red" id="trap-delete-btn" disabled>Delete selected</button>
+        </div>
+        <p id="trap-delete-error" class="trap-error" hidden></p>
+        <div class="trap-grid" id="trap-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const loginWrap = document.getElementById("trap-login-wrap");
+      const loginForm = document.getElementById("trap-login-form");
+      const loginError = document.getElementById("trap-login-error");
+      const managerWrap = document.getElementById("trap-manager-wrap");
+      const galleryStatus = document.getElementById("trap-gallery-status");
+      const grid = document.getElementById("trap-grid");
+      const deleteBtn = document.getElementById("trap-delete-btn");
+      const deleteError = document.getElementById("trap-delete-error");
+
+      function showManager() {
+        loginWrap.hidden = true;
+        managerWrap.hidden = false;
+      }
+
+      function showLogin() {
+        managerWrap.hidden = true;
+        loginWrap.hidden = false;
+      }
+
+      function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      function updateDeleteButton() {
+        const checked = grid.querySelectorAll("input[type=checkbox]:checked");
+        deleteBtn.disabled = checked.length === 0;
+        deleteBtn.textContent = checked.length
+          ? "Delete selected (" + checked.length + ")"
+          : "Delete selected";
+      }
+
+      function renderItems(items) {
+        if (!items.length) {
+          galleryStatus.textContent = "No trap photos.";
+          grid.innerHTML = "";
+          return;
+        }
+        galleryStatus.textContent = items.length + " photo" + (items.length === 1 ? "" : "s") + ".";
+        grid.innerHTML = items
+          .map(function (item) {
+            const when = new Date(item.receivedAt).toLocaleString("en-AU");
+            return (
+              '<label class="trap-tile trap-tile--selectable">' +
+              '<input type="checkbox" value="' + item.id + '" class="trap-tile__checkbox">' +
+              '<img src="' + item.imageUrl + '" alt="' + escapeHtml(item.caption) + '" loading="lazy">' +
+              '<span class="trap-tile__caption">' + escapeHtml(item.caption) + '<br><small>' + when + '</small></span>' +
+              '</label>'
+            );
+          })
+          .join("");
+        grid.querySelectorAll(".trap-tile__checkbox").forEach(function (cb) {
+          cb.addEventListener("change", updateDeleteButton);
+        });
+        updateDeleteButton();
+      }
+
+      async function loadGallery() {
+        const res = await fetch("/api/trap-gallery");
+        if (res.status === 401) {
+          showLogin();
+          return;
+        }
+        const data = await res.json();
+        renderItems(data.items || []);
+      }
+
+      loginForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        loginError.hidden = true;
+        const password = document.getElementById("trap-password").value;
+        const res = await fetch("/api/trap-login", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ password: password }),
+        });
+        const data = await res.json().catch(function () { return {}; });
+        if (!res.ok || data.role !== "admin") {
+          loginError.hidden = false;
+          return;
+        }
+        showManager();
+        await loadGallery();
+      });
+
+      deleteBtn.addEventListener("click", async function () {
+        const ids = Array.from(grid.querySelectorAll("input[type=checkbox]:checked")).map(
+          function (cb) { return cb.value; }
+        );
+        if (!ids.length) return;
+        if (!confirm("Delete " + ids.length + " photo" + (ids.length === 1 ? "" : "s") + "? This can't be undone.")) {
+          return;
+        }
+        deleteError.hidden = true;
+        deleteBtn.disabled = true;
+        const res = await fetch("/api/trap-delete", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ ids: ids }),
+        });
+        if (!res.ok) {
+          deleteError.textContent = "Couldn't delete those photos — try again.";
+          deleteError.hidden = false;
+          deleteBtn.disabled = false;
+          return;
+        }
+        await loadGallery();
+      });
+
+      // If a valid ADMIN session cookie already exists (e.g. page reload), skip to the
+      // manager. Checked specifically for the admin role — trap-gallery alone would
+      // also accept a viewer-only cookie, which must not unlock this page.
+      fetch("/api/trap-login").then(async function (res) {
+        if (!res.ok) return;
+        const data = await res.json().catch(function () { return {}; });
+        if (data.role === "admin") {
+          showManager();
+          loadGallery();
+        }
+      });
+    })();
+  </script>

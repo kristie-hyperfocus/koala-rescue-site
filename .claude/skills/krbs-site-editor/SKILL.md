@@ -5,6 +5,11 @@ description: Use whenever editing the Koala Rescue Brisbane South website (this 
 
 # Editing the KRBS website
 
+**Read `.claude/PROJECT-CONTEXT.md` first if you haven't already this session.** It has
+the full picture — who's involved, the trap viewer rebuild and its current status, and
+why the boundaries below exist. If this is the first time this skill is running for
+Richard in this environment, run the `krbs-setup` skill before this one.
+
 This site is built with Eleventy (11ty). Pages are `.njk` templates in `src/`, sharing a
 layout and nav/footer so a global change only needs editing once. Netlify builds and
 deploys automatically from the `main` branch on GitHub.

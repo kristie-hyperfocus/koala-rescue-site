@@ -1,0 +1,114 @@
+---
+layout: layouts/base.njk
+title: Trap Viewer - Koala Rescue Brisbane South
+permalink: trap-viewer.html
+noindex: true
+---
+
+  <section class="section">
+    <div class="container trap-container">
+      <h1 style="font-size: 32px; margin-bottom: 0.5rem;">Trap camera viewer</h1>
+      <p style="color: var(--text-light); margin-bottom: 2rem;">Private page for KRBS volunteers. Enter the shared password to see the latest trap camera photos.</p>
+
+      <div class="vol-form-wrap" id="trap-login-wrap">
+        <form class="vol-form" id="trap-login-form">
+          <div class="vol-form-field">
+            <label for="trap-password">Password</label>
+            <input type="password" id="trap-password" name="password" required autocomplete="current-password">
+          </div>
+          <p id="trap-login-error" class="trap-error" hidden>Incorrect password. Try again.</p>
+          <button type="submit" class="btn">View photos</button>
+        </form>
+      </div>
+
+      <div id="trap-gallery-wrap" hidden>
+        <p id="trap-gallery-status" style="color: var(--text-light);"></p>
+        <div class="trap-grid" id="trap-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const loginWrap = document.getElementById("trap-login-wrap");
+      const loginForm = document.getElementById("trap-login-form");
+      const loginError = document.getElementById("trap-login-error");
+      const galleryWrap = document.getElementById("trap-gallery-wrap");
+      const galleryStatus = document.getElementById("trap-gallery-status");
+      const grid = document.getElementById("trap-grid");
+
+      let pollTimer = null;
+
+      function showGallery() {
+        loginWrap.hidden = true;
+        galleryWrap.hidden = false;
+      }
+
+      function showLogin() {
+        if (pollTimer) clearInterval(pollTimer);
+        galleryWrap.hidden = true;
+        loginWrap.hidden = false;
+      }
+
+      function renderItems(items) {
+        if (!items.length) {
+          galleryStatus.textContent = "No trap photos yet.";
+          grid.innerHTML = "";
+          return;
+        }
+        galleryStatus.textContent = "Showing the latest " + items.length + " photo" + (items.length === 1 ? "" : "s") + ".";
+        grid.innerHTML = items
+          .map(function (item) {
+            const when = new Date(item.receivedAt).toLocaleString("en-AU");
+            return (
+              '<a class="trap-tile" href="' + item.imageUrl + '" target="_blank" rel="noopener">' +
+              '<img src="' + item.imageUrl + '" alt="' + escapeHtml(item.caption) + '" loading="lazy">' +
+              '<span class="trap-tile__caption">' + escapeHtml(item.caption) + '<br><small>' + when + '</small></span>' +
+              '</a>'
+            );
+          })
+          .join("");
+      }
+
+      function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      async function loadGallery() {
+        const res = await fetch("/api/trap-gallery");
+        if (res.status === 401) {
+          showLogin();
+          return;
+        }
+        const data = await res.json();
+        renderItems(data.items || []);
+      }
+
+      loginForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        loginError.hidden = true;
+        const password = document.getElementById("trap-password").value;
+        const res = await fetch("/api/trap-login", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ password: password }),
+        });
+        if (!res.ok) {
+          loginError.hidden = false;
+          return;
+        }
+        showGallery();
+        await loadGallery();
+        pollTimer = setInterval(loadGallery, 120000);
+      });
+
+      // If a valid session cookie already exists (e.g. page reload), skip straight to the gallery.
+      loadGallery().then(function () {
+        if (!galleryWrap.hidden) {
+          pollTimer = setInterval(loadGallery, 120000);
+        }
+      });
+    })();
+  </script>

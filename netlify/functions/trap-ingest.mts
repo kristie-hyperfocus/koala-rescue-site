@@ -29,6 +29,32 @@ function allowedSenders(): string[] {
     .filter(Boolean);
 }
 
+// The mail server has been observed to silently hang on an individual IMAP
+// command (seen: a plain \Seen flag update never completed, with no error —
+// just nothing, until the whole invocation was killed at the platform's hard
+// execution limit). Wrapping each command means a single stuck command fails
+// loudly and promptly instead of burning the full execution silently, and
+// without this a stuck message would also get retried — and get stuck again
+// — on every subsequent 5-minute run.
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(
+      () => reject(new Error(`[trap-ingest] timed out after ${ms}ms: ${label}`)),
+      ms
+    );
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (err) => {
+        clearTimeout(timer);
+        reject(err);
+      }
+    );
+  });
+}
+
 export default async () => {
   const host = requireEnv("TRAP_MAILBOX_HOST");
   const port = Number(process.env.TRAP_MAILBOX_PORT || 993);
@@ -55,7 +81,7 @@ export default async () => {
 
   console.log("[trap-ingest] connecting...");
   try {
-    await client.connect();
+    await withTimeout(client.connect(), 20000, "connect");
     console.log("[trap-ingest] connected");
   } catch (err) {
     // connect() can leave the socket half-open on a rejected login; close()
@@ -68,7 +94,7 @@ export default async () => {
 
   try {
     console.log("[trap-ingest] acquiring mailbox lock...");
-    const lock = await client.getMailboxLock("INBOX");
+    const lock = await withTimeout(client.getMailboxLock("INBOX"), 15000, "getMailboxLock");
     console.log("[trap-ingest] got lock, fetching unseen messages...");
     try {
       const store = photosStore();
@@ -88,7 +114,11 @@ export default async () => {
         console.log(`[trap-ingest] msg uid=${msg.uid}: from=${from}`);
 
         if (!allowList.includes(from)) {
-          await client.messageFlagsAdd(msg.uid, ["\\Seen"], { uid: true });
+          await withTimeout(
+            client.messageFlagsAdd(msg.uid, ["\\Seen"], { uid: true }),
+            15000,
+            `messageFlagsAdd uid=${msg.uid}`
+          );
           skipped++;
           console.log(`[trap-ingest] msg uid=${msg.uid}: sender not allow-listed, skipped`);
           continue;
@@ -98,7 +128,11 @@ export default async () => {
           a.contentType.startsWith("image/")
         );
         if (!attachment) {
-          await client.messageFlagsAdd(msg.uid, ["\\Seen"], { uid: true });
+          await withTimeout(
+            client.messageFlagsAdd(msg.uid, ["\\Seen"], { uid: true }),
+            15000,
+            `messageFlagsAdd uid=${msg.uid}`
+          );
           skipped++;
           console.log(`[trap-ingest] msg uid=${msg.uid}: no image attachment, skipped`);
           continue;
@@ -111,17 +145,25 @@ export default async () => {
         const timestamp = (parsed.date ?? new Date()).toISOString();
         const caption = (parsed.subject || "Trap camera photo").trim();
 
-        await store.set(id, attachment.content, {
-          metadata: { contentType: attachment.contentType },
-        });
+        await withTimeout(
+          store.set(id, attachment.content, {
+            metadata: { contentType: attachment.contentType },
+          }),
+          20000,
+          `blobs store.set id=${id}`
+        );
         console.log(`[trap-ingest] msg uid=${msg.uid}: stored as ${id}, adding index record...`);
-        await addRecord({
-          id,
-          caption,
-          capturedAt: timestamp,
-          receivedAt: timestamp,
-          contentType: attachment.contentType,
-        });
+        await withTimeout(
+          addRecord({
+            id,
+            caption,
+            capturedAt: timestamp,
+            receivedAt: timestamp,
+            contentType: attachment.contentType,
+          }),
+          15000,
+          `addRecord id=${id}`
+        );
         console.log(`[trap-ingest] msg uid=${msg.uid}: index updated`);
 
         toDelete.push(msg.uid);
@@ -133,14 +175,14 @@ export default async () => {
       if (toDelete.length > 0) {
         console.log(`[trap-ingest] expunging ${toDelete.length} processed message(s)...`);
         // Adds \Deleted and expunges in one call.
-        await client.messageDelete(toDelete, { uid: true });
+        await withTimeout(client.messageDelete(toDelete, { uid: true }), 15000, "messageDelete");
         console.log("[trap-ingest] expunge done");
       }
     } finally {
       lock.release();
     }
   } finally {
-    await client.logout().catch(() => client.close());
+    await withTimeout(client.logout(), 10000, "logout").catch(() => client.close());
   }
 
   console.log(`[trap-ingest] processed ${processed}, skipped ${skipped}`);

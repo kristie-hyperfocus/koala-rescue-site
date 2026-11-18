@@ -14,7 +14,7 @@ import type { Config } from "@netlify/functions";
 import { randomUUID } from "node:crypto";
 import { ImapFlow } from "imapflow";
 import { simpleParser } from "mailparser";
-import { photosStore, addRecord } from "./_shared/store.js";
+import { photosStore, addRecord, pruneOldRecords } from "./_shared/store.js";
 
 function requireEnv(name: string): string {
   const value = process.env[name];
@@ -186,6 +186,11 @@ export default async () => {
   }
 
   console.log(`[trap-ingest] processed ${processed}, skipped ${skipped}`);
+
+  const { prunedCount } = await withTimeout(pruneOldRecords(), 20000, "pruneOldRecords");
+  if (prunedCount > 0) {
+    console.log(`[trap-ingest] pruned ${prunedCount} photo(s) over the 42-photo/14-day limit`);
+  }
 };
 
 export const config: Config = {

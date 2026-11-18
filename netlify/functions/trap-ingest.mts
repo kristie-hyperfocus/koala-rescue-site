@@ -53,7 +53,17 @@ export default async () => {
   let processed = 0;
   let skipped = 0;
 
-  await client.connect();
+  try {
+    await client.connect();
+  } catch (err) {
+    // connect() can leave the socket half-open on a rejected login; close()
+    // forcibly tears it down so it can't fire a stray timeout error after
+    // this invocation has already ended (and potentially bleed into the next
+    // invocation's logs, since Lambda-style runtimes can reuse containers).
+    client.close();
+    throw err;
+  }
+
   try {
     const lock = await client.getMailboxLock("INBOX");
     try {
@@ -109,7 +119,7 @@ export default async () => {
       lock.release();
     }
   } finally {
-    await client.logout();
+    await client.logout().catch(() => client.close());
   }
 
   console.log(`[trap-ingest] processed ${processed}, skipped ${skipped}`);

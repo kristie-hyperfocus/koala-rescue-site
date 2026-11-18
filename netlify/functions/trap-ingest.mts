@@ -53,8 +53,10 @@ export default async () => {
   let processed = 0;
   let skipped = 0;
 
+  console.log("[trap-ingest] connecting...");
   try {
     await client.connect();
+    console.log("[trap-ingest] connected");
   } catch (err) {
     // connect() can leave the socket half-open on a rejected login; close()
     // forcibly tears it down so it can't fire a stray timeout error after
@@ -65,21 +67,30 @@ export default async () => {
   }
 
   try {
+    console.log("[trap-ingest] acquiring mailbox lock...");
     const lock = await client.getMailboxLock("INBOX");
+    console.log("[trap-ingest] got lock, fetching unseen messages...");
     try {
       const store = photosStore();
       const toDelete: number[] = [];
+      let seen = 0;
 
       for await (const msg of client.fetch(
         { seen: false },
         { envelope: true, source: true, uid: true }
       )) {
+        seen++;
+        console.log(
+          `[trap-ingest] msg uid=${msg.uid}: fetched, ${msg.source.length} bytes, parsing...`
+        );
         const parsed = await simpleParser(msg.source);
         const from = parsed.from?.value?.[0]?.address?.toLowerCase() ?? "";
+        console.log(`[trap-ingest] msg uid=${msg.uid}: from=${from}`);
 
         if (!allowList.includes(from)) {
           await client.messageFlagsAdd(msg.uid, ["\\Seen"], { uid: true });
           skipped++;
+          console.log(`[trap-ingest] msg uid=${msg.uid}: sender not allow-listed, skipped`);
           continue;
         }
 
@@ -89,8 +100,12 @@ export default async () => {
         if (!attachment) {
           await client.messageFlagsAdd(msg.uid, ["\\Seen"], { uid: true });
           skipped++;
+          console.log(`[trap-ingest] msg uid=${msg.uid}: no image attachment, skipped`);
           continue;
         }
+        console.log(
+          `[trap-ingest] msg uid=${msg.uid}: image attachment ${attachment.content.length} bytes, storing in blobs...`
+        );
 
         const id = randomUUID();
         const timestamp = (parsed.date ?? new Date()).toISOString();
@@ -99,6 +114,7 @@ export default async () => {
         await store.set(id, attachment.content, {
           metadata: { contentType: attachment.contentType },
         });
+        console.log(`[trap-ingest] msg uid=${msg.uid}: stored as ${id}, adding index record...`);
         await addRecord({
           id,
           caption,
@@ -106,14 +122,19 @@ export default async () => {
           receivedAt: timestamp,
           contentType: attachment.contentType,
         });
+        console.log(`[trap-ingest] msg uid=${msg.uid}: index updated`);
 
         toDelete.push(msg.uid);
         processed++;
       }
 
+      console.log(`[trap-ingest] fetch loop done, saw ${seen} unseen message(s)`);
+
       if (toDelete.length > 0) {
+        console.log(`[trap-ingest] expunging ${toDelete.length} processed message(s)...`);
         // Adds \Deleted and expunges in one call.
         await client.messageDelete(toDelete, { uid: true });
+        console.log("[trap-ingest] expunge done");
       }
     } finally {
       lock.release();

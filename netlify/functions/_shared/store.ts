@@ -50,3 +50,31 @@ export async function removeRecords(ids: string[]): Promise<void> {
   const store = photosStore();
   await Promise.all(ids.map((id) => store.delete(id)));
 }
+
+// Retention policy (Richard's call): keep at most this many photos, and never
+// anything older than this many days — whichever limit is more restrictive at
+// the time. Pruned photos are deleted permanently, not archived elsewhere —
+// there's nowhere else for them to live, and that's the intended behaviour.
+const MAX_PHOTOS = 42;
+const MAX_AGE_DAYS = 14;
+
+export async function pruneOldRecords(): Promise<{ prunedCount: number }> {
+  const records = await readIndex();
+  const cutoff = Date.now() - MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+
+  const newestFirst = [...records].sort((a, b) =>
+    b.receivedAt.localeCompare(a.receivedAt)
+  );
+  const keepIds = new Set(
+    newestFirst
+      .filter((r) => new Date(r.receivedAt).getTime() >= cutoff)
+      .slice(0, MAX_PHOTOS)
+      .map((r) => r.id)
+  );
+
+  const toPrune = records.filter((r) => !keepIds.has(r.id)).map((r) => r.id);
+  if (toPrune.length > 0) {
+    await removeRecords(toPrune);
+  }
+  return { prunedCount: toPrune.length };
+}
